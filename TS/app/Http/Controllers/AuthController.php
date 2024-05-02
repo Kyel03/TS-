@@ -25,7 +25,7 @@ class AuthController extends Controller
         Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed|regex:/^[A-Za-z0-9 _-]+$/'
         ])->validate();
  
         User::create([
@@ -47,7 +47,7 @@ class AuthController extends Controller
     {
         Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required|regex:/^[A-Za-z0-9 _-]+$/'
         ])->validate();
  
         if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
